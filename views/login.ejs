@@ -1,0 +1,19 @@
+<%- include ("parts/header") %>
+    <%- include ("parts/navbar") %>
+        <div class="container text-center">
+            <h3>Login</h3>
+            <form action="/login" method="post">
+                <input type="email" class="form-control" name="email" placeholder="email" id="">
+                <input type="password" name="password" class="form-control" placeholder="password" id="">
+                <button type="submit" class="btn btn-primary">login</button>
+            </form>
+            <br>
+            <% if(authError){ %> 
+            <div class="alert alert-danger"><%= authError %> </div>
+            <% } %> 
+            <br>
+            <div>
+                Don't have an account ? <a href="/signup">Sign up</a>
+            </div>
+        </div>
+        <%- include ("parts/footer") %>

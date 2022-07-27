@@ -1,0 +1,44 @@
+<%- include ("parts/header") %>
+    <%- include ("parts/navbar") %>
+        <div class="container">
+            <form action="/" method="GET">
+                <select class="form-control" name="category">
+                    <option value="all">all</option>
+                    <option value="Clothes">Clothes</option>
+                    <option value="Phones">Phones</option>
+                    <option value="computers">computers</option>
+                </select>
+            </form>
+            <% if (products.length===0) { %>
+                <div class="alert alert-danger text-center">
+                    there are no products available
+                </div>
+                <% } else {%>
+                    <div class="row">
+                        <% for(let product of products){%>
+                            <div class="col col-12 col-md-6 col-lg-4 col-xl-3">
+                                <div class="card" style="width: 18rem">
+                                    <img src="/<%= product.image %> " class="card-img-top" alt="..." />
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <a href="/products/<%= product._id%>">
+                                                <%=product.name %>
+                                            </a>
+                                        </h5>
+                                        <p class="card-text">
+                                            <%= product.description %>
+                                                <br />
+                                                <%= product.price %>
+                                        </p>
+                                        <form action="/cart" method="POST">
+                                            <input type="number" name="amount" class="form-control" value="1" />
+                                            <button type="submit" class="btn btn-primary">add to cart</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                    </div>
+                    <% } %>
+        </div>
+        <%- include ("parts/footer") %>

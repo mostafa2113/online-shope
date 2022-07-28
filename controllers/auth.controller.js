@@ -6,10 +6,9 @@ exports.getSignup = (req, res, next) => {
 };
 
 exports.postSignup = (req, res, next) => {
-    const error = validationResult(req).array()
-    if (!error) {
+    const error = validationResult(req)
+    if (error.isEmpty()) {
         const { username, email, password } = req.body;
-
         authModel
             .createNewUser(username, email, password)
             .then(() => {
@@ -19,10 +18,12 @@ exports.postSignup = (req, res, next) => {
                 res.redirect("/signup");
             });
     }
+    else {
+    }
 };
 
 exports.getLogin = (req, res, next) => {
-    
+
     res.render("login", { authError: req.flash("authError")[0] });
 };
 
@@ -31,7 +32,7 @@ exports.postLogin = (req, res, next) => {
         req.session.userId = id;
         res.redirect("/");
     }).catch((err) => {
-        req.flash("authError",err)
+        req.flash("authError", err)
         res.redirect("/login");
     });
 };

@@ -1,17 +1,39 @@
 <%- include ("parts/header") %>
     <%- include ("parts/navbar") %>
-<div class="container text-center">
-    <h3>Create a new Account</h3>
-    <form action="/signup" method="post">
-        <input type="text" class="form-control" placeholder="username" name="username">
-        <input type="email" class="form-control" name="email" placeholder="email" id="">
-        <input type="password" name="password" class="form-control" placeholder="password" id="">
-        <input type="password" name="confirmPassword" class="form-control" placeholder="confirm password" id="">
-        <button type="submit" class="btn btn-primary">signup</button>
-    </form>
-    <br>
-    <div>
-        Already have an account? <a href="/login">Login</a>
-    </div>
-</div>
+        <div class="container text-center">
+            <h3>Create a new Account</h3>
+            <form action="/signup" method="post">
+                <input type="text" class="form-control" placeholder="username" name="username">
+                <% if (signupError.find(value=>value.param==="username")) { %>
+                    <div class="alert alert-danger">
+                        <%= (signupError.find(value=>value.param==="username")).msg %>
+                    </div>
+                    <% } %>
+                        <input type="email" class="form-control" name="email" placeholder="email" id="">
+                        <% if (signupError.find(value=>value.param==="email")) { %>
+                            <div class="alert alert-danger">
+                                <%= (signupError.find(value=>value.param==="email")).msg %>
+                            </div>
+                            <% } %>
+                                <input type="password" name="password" class="form-control" placeholder="password"
+                                    id="">
+                                <% if (signupError.find(value=>value.param==="password")) { %>
+                                    <div class="alert alert-danger">
+                                        <%= (signupError.find(value=>value.param==="password")).msg %>
+                                    </div>
+                                    <% } %>
+                                        <input type="password" name="confirmPassword" class="form-control"
+                                            placeholder="confirm password" id="">
+                                            <% if (signupError.find(value=>value.param==="confirmPassword")) { %>
+                                                <div class="alert alert-danger">
+                                                    <%= (signupError.find(value=>value.param==="confirmPassword")).msg %>
+                                                </div>
+                                                <% } %>
+                                        <button type="submit" class="btn btn-primary">signup</button>
+            </form>
+            <br>
+            <div>
+                Already have an account? <a href="/login">Login</a>
+            </div>
+        </div>
         <%- include ("parts/footer") %>

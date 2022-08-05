@@ -4,7 +4,6 @@ const path = require('path');
 const session = require('express-session');
 const SessionStore = require("connect-mongodb-session")(session)
 const flash = require('connect-flash');
-app.use(flash())
 
 const Mongo_URL = "mongodb://localhost:27017/online-shop";
 
@@ -15,6 +14,7 @@ const authRouter = require("./routes/auth.routes")
 
 app.use(express.static(path.join(__dirname, "assets")));
 app.use(express.static(path.join(__dirname, "images")));
+app.use(flash())
 
 const store = new SessionStore({
     uri: Mongo_URL,

@@ -62,7 +62,7 @@ exports.getProductsById = (id) => {
     });
 };
 
-exports.getFirstProduct = (id) => {
+exports.getFirstProduct = () => {
     return new Promise((resolve, reject) => {
         mongoose
             .connect(Mongo_URL)

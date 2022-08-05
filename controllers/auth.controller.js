@@ -2,7 +2,7 @@ const authModel = require('../models/auth.model');
 const { validationResult } = require("express-validator")
 
 exports.getSignup = (req, res, next) => {
-    res.render("signup");
+    res.render("signup", { signupError: req.flash("signupError"), isUser: req.session.userId });
 };
 
 exports.postSignup = (req, res, next) => {
@@ -19,12 +19,14 @@ exports.postSignup = (req, res, next) => {
             });
     }
     else {
+        req.flash("signupError",error.array());
+        res.redirect("/signup");
     }
 };
 
 exports.getLogin = (req, res, next) => {
 
-    res.render("login", { authError: req.flash("authError")[0] });
+    res.render("login", { authError: req.flash("authError")[0], isUser: req.session.userId });
 };
 
 exports.postLogin = (req, res, next) => {

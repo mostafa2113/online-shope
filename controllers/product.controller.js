@@ -1,10 +1,5 @@
 const productsModel = require('../models/products.model')
 
-exports.getProduct = (req, res, next) => {
-    productsModel.getFirstProduct().then((product) => {
-        res.render("product", { product })
-    })
-}
 
 exports.getProductById = (req, res, next) => {
     //get id
@@ -12,6 +7,8 @@ exports.getProductById = (req, res, next) => {
     //render
     let id = req.params.id;
     productsModel.getProductsById(id).then((product) => {
-        res.render("product", { product });
+        res.render("product", { product, isUser: req.session.userId });
+    }).catch((err) => {
+        res.render("product", { product:false,isUser: req.session.userId})
     });
 };

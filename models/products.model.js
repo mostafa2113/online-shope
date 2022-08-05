@@ -50,10 +50,16 @@ exports.getProductsById = (id) => {
         mongoose
             .connect(Mongo_URL)
             .then(() => {
-                Product.findById(id).then((products) => {
+                if(mongoose.Types.ObjectId.isValid(id)) {
+                    Product.findById(id).then((products) => {
+                        mongoose.disconnect();
+                        resolve(products);
+                    });
+                }
+                else{
+                    reject("invalid id")
                     mongoose.disconnect();
-                    resolve(products);
-                });
+                }
             })
             .catch((err) => {
                 reject(err);
